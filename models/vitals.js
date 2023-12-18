@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const vitalsSchema = new mongoose.Schema({
-  encounterID: { type: mongoose.Schema.Types.ObjectId, ref: 'Encounter', required: true },
+  encounterID: { type: String, required: true }, // Change the type to String
   bloodPressure: { type: String },
   temperature: { type: String },
   pulse: { type: String },

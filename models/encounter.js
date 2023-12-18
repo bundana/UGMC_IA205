@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const encounterSchema = new mongoose.Schema({
-  patientID: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true },
+  patientID: { type: String, required: true }, // Change the type to String
   date: { type: Date, required: true },
   type: { type: String, enum: ['Emergency', 'OPD', 'Specialist Care'], required: true },
 });

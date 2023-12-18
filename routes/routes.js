@@ -3,6 +3,7 @@ const router = express.Router();
 const Patient = require('../models/patient');
 const Encounter = require('../models/encounter');
 const Vitals = require('../models/vitals');
+const doctorController = require('../models/doctorController');
 
 // Register a new patient
 router.post('/patients/register', async (req, res) => {

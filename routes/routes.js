@@ -34,40 +34,8 @@ router.post('/vitals/submit', async (req, res) => {
   }
 });
 
-// Fetch a list of all patients
-router.get('/patients', async (req, res) => {
- try {
-   const patients = await Patient.find();
-   res.json({ patients });
- } catch (error) {
-   res.status(500).json({ error: error.message });
- }
-});
+// New routes for the doctor
+router.get('/doctor/patients', doctorController.getPatientsList);
+router.get('/doctor/patients/:patientID', doctorController.getPatientDetails);
 
-// Fetch details of a specific patient by ID
-router.get('/patients/:id', async (req, res) => {
- const patientId = req.params.id;
-
- try {
-   const patient = await Patient.findById(patientId);
-   if (!patient) {
-     return res.status(404).json({ message: 'Patient not found' });
-   }
-
-   // Fetch encounters for the patient
-   const encounters = await Encounter.find({ patientID: patientId });
-   
-   // Fetch vitals for each encounter
-   const vitalsPromises = encounters.map(async (encounter) => {
-     const vitals = await Vitals.findOne({ encounterID: encounter._id });
-     return { encounter, vitals };
-   });
-
-   const patientDetails = await Promise.all(vitalsPromises);
-
-   res.json({ patientDetails });
- } catch (error) {
-   res.status(500).json({ error: error.message });
- }
-});
 module.exports = router;
